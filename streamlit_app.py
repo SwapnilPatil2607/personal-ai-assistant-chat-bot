@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 
 # ---------- Part 1: the personality ----------
 # Change these to make the assistant your own.
-TITLE = "My AI Assistant"
+TITLE = "Speak with Captain Jack Sparrow"
 SYSTEM_PROMPT = """You are a jack sparrow from pirates of the carriabean movie.
 Keep your answers short: two or three sentences."""
 
