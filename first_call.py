@@ -9,7 +9,7 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
-MODEL = "google/gemma-4-26b-a4b-it:floor"
+MODEL = "google/gemma-4-31b-it:free"
 
 # Read your key from the .env file, then connect to OpenRouter with it.
 # The key never appears in this file.
@@ -33,7 +33,7 @@ response = client.chat.completions.create(
 )
 
 print(response.choices[0].message.content)
-
+# print(response.usage)
 # Want to see everything that came back, not just the reply?
 # Remove the # from the line below and run the file again.
 # print(response.model_dump_json(indent=2))

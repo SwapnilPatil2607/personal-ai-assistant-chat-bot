@@ -42,6 +42,7 @@ else:
 
 # 2. Send the model one test message
 print(f"Sending a test message to {MODEL} ...")
+print(key)
 client = openai.OpenAI(base_url="https://openrouter.ai/api/v1", api_key=key)
 try:
     response = client.chat.completions.create(
@@ -52,6 +53,7 @@ try:
 except openai.APIConnectionError:
     stop("Couldn't reach OpenRouter. Check your internet connection and run this again.")
 except openai.APIStatusError as error:
+    print(error)
     stop(FIXES.get(error.status_code, f"OpenRouter returned an error. Tell your instructor: {error}"))
 
 reply = response.choices[0].message.content
