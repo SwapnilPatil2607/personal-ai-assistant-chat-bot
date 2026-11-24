@@ -29,7 +29,7 @@ Personality:
 """
 
 # ---------- Settings ----------
-MODEL = "inclusionai/ling-3.2-flash:free"
+MODEL = "nvidia/nemotron-3-ultra-550b-a55b:free"
 MAX_REPLY_TOKENS = 300
 MAX_MESSAGES = 20
 DB_NAME = "chat_history.db"
