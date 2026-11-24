@@ -29,7 +29,7 @@ Personality:
 """
 
 # ---------- Settings ----------
-MODEL = "google/gemma-4-26b-a4b-it:floor"
+MODEL = "inclusionai/ling-3.2-flash:free"
 MAX_REPLY_TOKENS = 300
 MAX_MESSAGES = 20
 DB_NAME = "chat_history.db"
@@ -171,7 +171,7 @@ if user_text:
                     ] + st.session_state.messages,
                     max_tokens=MAX_REPLY_TOKENS,
                 )
-
+                
                 reply = (
                     response.choices[0].message.content
                     or "(The model sent back an empty reply.)"

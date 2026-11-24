@@ -1,3 +1,4 @@
+
 """Your first call to a language model.
 
 Run it from the terminal:
@@ -5,35 +6,58 @@ Run it from the terminal:
 """
 
 import os
-
 from dotenv import load_dotenv
 from openai import OpenAI
 
-MODEL = "google/gemma-4-31b-it:free"
+MODEL = "inclusionai/ling-3.2-flash:free"
 
-# Read your key from the .env file, then connect to OpenRouter with it.
-# The key never appears in this file.
+# Load API key
 load_dotenv()
+
+api_key = os.getenv("OPENROUTER_API_KEY")
+
+if not api_key:
+    raise ValueError(
+        "API key not found. Check your .env file."
+    )
+
+# Connect to OpenRouter
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key=os.environ["OPENROUTER_API_KEY"],
+    api_key=api_key,
 )
 
-# The conversation is a list of messages. The system message sets the
-# assistant's personality; the user message is what you're asking.
+# Conversation
 messages = [
-    {"role": "system", "content": "You are a grumpy pirate. Answer in one or two sentences."},
-    {"role": "user", "content": "What's the best way to learn to code?"},
+    {
+        "role": "system",
+        "content": (
+            "You are a grumpy pirate. "
+            "Answer in one or two sentences."
+        ),
+    },
+    {
+        "role": "user",
+        "content": "What's the best way to learn to code?",
+    },
 ]
 
-response = client.chat.completions.create(
-    model=MODEL,
-    messages=messages,
-    max_tokens=200,  # the most the reply can be, measured in tokens
-)
+# Send request
+try:
+    response = client.chat.completions.create(
+        model=MODEL,
+        messages=messages,
+        max_tokens=200,
+    )
 
-print(response.choices[0].message.content)
-# print(response.usage)
-# Want to see everything that came back, not just the reply?
-# Remove the # from the line below and run the file again.
-# print(response.model_dump_json(indent=2))
+    reply = response.choices[0].message.content
+
+    if not reply or not reply.strip():
+        print("The model returned an empty response.")
+    else:
+        print("\nCaptain's response:")
+        print(reply.strip())
+
+except Exception as error:
+    print(error)
+    print(f"Something went wrong: {error}")

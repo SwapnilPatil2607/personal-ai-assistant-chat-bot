@@ -10,7 +10,7 @@ from getpass import getpass
 import openai
 from dotenv import dotenv_values, set_key
 
-MODEL = "google/gemma-4-26b-a4b-it:floor"  # change only if your instructor says so
+MODEL = "inclusionai/ling-3.2-flash:free"  # change only if your instructor says so
 ENV_FILE = ".env"
 
 # What to tell you for each kind of error OpenRouter can send back
@@ -42,7 +42,7 @@ else:
 
 # 2. Send the model one test message
 print(f"Sending a test message to {MODEL} ...")
-print(key)
+
 client = openai.OpenAI(base_url="https://openrouter.ai/api/v1", api_key=key)
 try:
     response = client.chat.completions.create(
@@ -54,9 +54,12 @@ except openai.APIConnectionError:
     stop("Couldn't reach OpenRouter. Check your internet connection and run this again.")
 except openai.APIStatusError as error:
     print(error)
+    print(error)
     stop(FIXES.get(error.status_code, f"OpenRouter returned an error. Tell your instructor: {error}"))
 
+
 reply = response.choices[0].message.content
+print(reply)
 if not reply:
     stop("The model sent back an empty reply. Tell your instructor.")
 print(f'✅ The model replied: "{reply.strip()}"')
